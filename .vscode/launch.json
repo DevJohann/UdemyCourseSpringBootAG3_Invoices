@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringDiInvoiceApplication<spring-di-invoice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.rootsoftworks.course.di.invoice.springdiinvoice.SpringDiInvoiceApplication",
+            "projectName": "spring-di-invoice",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
