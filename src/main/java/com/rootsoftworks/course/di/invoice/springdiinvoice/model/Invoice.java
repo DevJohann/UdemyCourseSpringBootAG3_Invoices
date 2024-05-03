@@ -3,8 +3,12 @@ package com.rootsoftworks.course.di.invoice.springdiinvoice.model;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 @Component
 public class Invoice {
@@ -12,14 +16,28 @@ public class Invoice {
     @Autowired
     private Customer customer;
 
-    @Value("${invoice.desc}")
+    @Value("${invoice.office}")
     private String desc;
 
     @Autowired
+    @Qualifier("itemInvoiceOffice")
     private List<Item> items;
 
+    
+    public Invoice() {
+        System.out.println(customer);
+    }
 
 
+    @PostConstruct
+    public void init(){
+        desc = desc.concat(" del cliente: ".concat(customer.getCustomerName()));
+    }
+
+    @PreDestroy
+    public void destroy(){
+        System.out.println("Destruyendo bean: Invoice");
+    }
 
     public Customer getCustomer() {
         return customer;
@@ -40,7 +58,7 @@ public class Invoice {
         this.items = items;
     }
     public int getTotalPrice(){
-        return 0;
+        return items.stream().map(item -> item.getTotalPrice()).reduce(0, (sum, item) -> sum + item);
     }
     
 }
