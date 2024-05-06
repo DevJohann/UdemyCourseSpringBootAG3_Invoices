@@ -16,6 +16,10 @@ public class InvoiceController {
     
     @GetMapping("/show")
     public Invoice show(){
-        return invoice;
+        Invoice i = new Invoice();
+        i.setCustomer(invoice.getCustomer());
+        i.setDesc(invoice.getDesc());
+        i.setItems(invoice.getItems());
+        return i;
     }
 }
